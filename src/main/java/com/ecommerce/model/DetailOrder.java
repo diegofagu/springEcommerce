@@ -1,12 +1,40 @@
 package com.ecommerce.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "details")
 public class DetailOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private double amount;
     private double price;
     private double total;
+
+    @OneToOne
+    private Order order;
+
+    @OneToOne
+    private Product product;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public DetailOrder(){
 

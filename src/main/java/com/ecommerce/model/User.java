@@ -1,7 +1,15 @@
 package com.ecommerce.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity //de esta manera declaramos que la clase en cuestion es una entidad en la bdd
+@Table(name = "users") //el nombre de la tabla sera usuarios
 public class User {
 
+    @Id //id autoincremental
+    @GeneratedValue (strategy = GenerationType.IDENTITY) //con esta notacion declaramos que id es un campo autoincremental
     private Integer id;
     private String name;
     private String userName;
@@ -10,6 +18,28 @@ public class User {
     private String phone;
     private String type; //tipo de usuario , niveles
     private String password;
+
+    @OneToMany(mappedBy = "user") //con JPA definimos una relacion de uno a muchos
+    private List<Product> products; //de esta manera declaro que a futuro voy a pedir una lista de productos por usuario
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public User() {
     }

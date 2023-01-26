@@ -1,14 +1,34 @@
 package com.ecommerce.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
+@Entity
+@Table (name ="orders")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String number;
     private Date creationDate;
     private Date receiptDate;
     private double total;
+
+    @ManyToOne //asi declaramos que la relacion de usuarios con order es de uno a muchos ya que un usuario puede tener muchas ordenes
+    private User user;
+
+    @OneToOne(mappedBy = "order")
+    private DetailOrder detailOrder;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     private Order(){
 
